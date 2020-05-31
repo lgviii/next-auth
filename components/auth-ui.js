@@ -8,7 +8,7 @@ const AuthUI = () => {
     startFirebaseUI("#firebaseui");
   }, []);
 
-  return <div />;
+  return <div id="firebaseui" />;
 };
 
 export default AuthUI;

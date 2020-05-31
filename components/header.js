@@ -1,96 +1,149 @@
 import Link from "next/link";
-import Head from "next/head";
 import React, { useEffect, useState } from "react";
-// import dynamic from "next/dynamic";
 import { isLoggedOn, logOut } from "../auth/security-checks";
-
 import * as firebase from "../auth/firebase-auth";
-
-// const ClientSideSecurity = dynamic(() => import("../components/security"), {
-//   ssr: false,
-// });
-
-// const AuthUI = dynamic(() => import("../components/auth-ui"), {
-//   ssr: false,
-// });
+// import "../css/Header.css";
 
 const Header = () => {
-  // turn this into a HOC by wrapping it for reuse!!!
-
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [isAuthLoaded, setisAuthLoaded] = useState(false);
 
   useEffect(() => {
-    isLoggedOn(setIsUserLoggedIn, setisAuthLoaded);
-    // setIsUserLoggedIn(true);
-    console.log("logged in state:");
-    console.log(isUserLoggedIn);
+    isLoggedOn(setIsUserLoggedIn);
   }, []);
 
   return (
     <div>
-      {/* <Head>
-        <title>Auth App</title>
-        <link rel="icon" href="/lock.jpg" />
-      </Head> */}
-      <div>
-        {/* <AuthUI /> */}
-        Welcome to the NextJS with FireBase Example!
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <ul>
-            <li>
-              <Link href="/">
-                <a>Home</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/user-info">
-                <a>A Private Page</a>
-              </Link>
-            </li>
-            {isAuthLoaded && isUserLoggedIn && (
-              <li>
-                <Link href="/admin">
-                  <a>Admin Page (You can only see this when logged in...)</a>
-                </Link>
-              </li>
-            )}
-          </ul>
-          <div
+      <div
+        style={{
+          background: "linear-gradient(19deg, #21D4FD, #00c469)",
+          padding: "40px",
+        }}
+      >
+        <div>
+          <span
             style={{
-              alignItems: "center",
-              display: "flex",
-              flexDirection: "row",
-              width: "200px",
-              justifyContent: "center",
+              color: "white",
+              textShadow: "0 .5rem 1rem rgba(50, 0, 100, .1)",
+              margin: 0,
+              fontSize: "3rem",
             }}
           >
-            {isAuthLoaded && (
-              <div>
-                {isUserLoggedIn ? (
-                  <Link href="/">
-                    <button
-                      onClick={() => {
-                        console.log("logout click");
-                        logOut();
-                      }}
-                    >
-                      log out
-                    </button>
-                  </Link>
-                ) : (
-                  <Link href="/login">
-                    <button
-                      onClick={() => {
-                        console.log("login click");
-                      }}
-                    >
-                      log in
-                    </button>
-                  </Link>
-                )}
-              </div>
+            NextJS with FireBase Example
+          </span>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <Link href="/">
+              <button
+                style={{
+                  padding: "1.5rem 2rem",
+                  border: 0,
+                  color: "#08AEEA",
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                  background: "white",
+                  borderRadius: "3px",
+                  transition: "all .2s",
+                  cursor: "pointer",
+                  boxShadow: "0 1.75rem 2rem -.4rem rgba(50, 0, 100, .15)",
+                  marginLeft: "20px",
+                }}
+              >
+                Home
+              </button>
+            </Link>
+            <Link href="/user-info">
+              <button
+                style={{
+                  padding: "1.5rem 2rem",
+                  border: 0,
+                  color: "#08AEEA",
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                  background: "white",
+                  borderRadius: "3px",
+                  transition: "all .2s",
+                  cursor: "pointer",
+                  boxShadow: "0 1.75rem 2rem -.4rem rgba(50, 0, 100, .15)",
+                  marginLeft: "20px",
+                }}
+              >
+                A Private Page
+              </button>
+            </Link>
+            {isUserLoggedIn && (
+              <Link href="/admin">
+                <button
+                  style={{
+                    padding: "1.5rem 2rem",
+                    border: 0,
+                    color: "#08AEEA",
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                    background: "white",
+                    borderRadius: "3px",
+                    transition: "all .2s",
+                    cursor: "pointer",
+                    boxShadow: "0 1.75rem 2rem -.4rem rgba(50, 0, 100, .15)",
+                    marginLeft: "20px",
+                  }}
+                >
+                  Admin Page (You can only see this when logged in...)
+                </button>
+              </Link>
             )}
+            <div
+              style={{
+                alignItems: "center",
+                display: "flex",
+                flexDirection: "row",
+                width: "200px",
+                justifyContent: "center",
+              }}
+            >
+              {isUserLoggedIn ? (
+                <Link href="/">
+                  <button
+                    onClick={() => {
+                      logOut();
+                    }}
+                    style={{
+                      padding: "1.5rem 2rem",
+                      border: 0,
+                      color: "blue",
+                      fontSize: "1.2rem",
+                      fontWeight: "bold",
+                      background: "lightgrey",
+                      borderRadius: "45px",
+                      transition: "all .2s",
+                      cursor: "pointer",
+                      boxShadow: "0 1.75rem 2rem -.4rem rgba(50, 0, 100, .15)",
+                      marginLeft: "20px",
+                    }}
+                  >
+                    log out
+                  </button>
+                </Link>
+              ) : (
+                <Link href="/login">
+                  <button
+                    style={{
+                      padding: "1.5rem 2rem",
+                      border: 0,
+                      color: "blue",
+                      fontSize: "1.2rem",
+                      fontWeight: "bold",
+                      background: "lightgrey",
+                      borderRadius: "45px",
+                      transition: "all .2s",
+                      cursor: "pointer",
+                      boxShadow: "0 1.75rem 2rem -.4rem rgba(50, 0, 100, .15)",
+                      marginLeft: "20px",
+                    }}
+                  >
+                    log in
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>

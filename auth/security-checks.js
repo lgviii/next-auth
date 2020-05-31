@@ -1,24 +1,28 @@
-import { useState } from "react";
 import * as firebase from "firebase";
 
-export const isLoggedOn = function (setIsUserLoggedIn, setisAuthLoaded) {
-  // let isUserLoggedIn = false;
-
+export const isLoggedOn = function (setIsUserLoggedIn, setUserData = null) {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      console.log("User is logged in");
+      console.log("User is logged in!");
       setIsUserLoggedIn(true);
-      setisAuthLoaded(true);
+      if (setUserData != null)
+        user.getIdToken().then(function (accessToken) {
+          setUserData({
+            displayName: user.displayName,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            phoneNumber: user.phoneNumber,
+            photoURL: user.photoURL,
+            uid: user.uid,
+            accessToken: accessToken,
+            providerData: user.providerData,
+          });
+        });
     } else {
-      console.log("User is not logged in");
+      console.log("User is not logged in!");
       setIsUserLoggedIn(false);
-      setisAuthLoaded(true);
     }
   });
-
-  // let user = firebase.auth().currentUser
-  // console.log("User:" + user);
-  // return isUserLoggedIn;
 };
 
 export const logOut = function () {
@@ -26,9 +30,9 @@ export const logOut = function () {
     .auth()
     .signOut()
     .then(function () {
-      console.log("logged out");
+      console.log("User has logged out.");
     })
     .catch(function (error) {
-      console.log("error logging out: " + error);
+      console.log("Error logging out: " + error);
     });
 };
