@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 // import dynamic from "next/dynamic";
 import { isLoggedOn, logOut } from "../auth/security-checks";
@@ -28,46 +29,71 @@ const Header = () => {
 
   return (
     <div>
-      {/* <AuthUI /> */}
-      Here is the header content:
-      <ul>
-        <li>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/private">
-            <a>A Private Page</a>
-          </Link>
-        </li>
-      </ul>
-      {isAuthLoaded && (
-        <div>
-          {isUserLoggedIn ? (
-            <Link href="/">
-              <button
-                onClick={() => {
-                  console.log("logout click");
-                  logOut();
-                }}
-              >
-                log out
-              </button>
-            </Link>
-          ) : (
-            <Link href="/login">
-              <button
-                onClick={() => {
-                  console.log("login click");
-                }}
-              >
-                log in
-              </button>
-            </Link>
-          )}
+      {/* <Head>
+        <title>Auth App</title>
+        <link rel="icon" href="/lock.jpg" />
+      </Head> */}
+      <div>
+        {/* <AuthUI /> */}
+        Welcome to the NextJS with FireBase Example!
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <ul>
+            <li>
+              <Link href="/">
+                <a>Home</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/user-info">
+                <a>A Private Page</a>
+              </Link>
+            </li>
+            {isAuthLoaded && isUserLoggedIn && (
+              <li>
+                <Link href="/admin">
+                  <a>Admin Page (You can only see this when logged in...)</a>
+                </Link>
+              </li>
+            )}
+          </ul>
+          <div
+            style={{
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "row",
+              width: "200px",
+              justifyContent: "center",
+            }}
+          >
+            {isAuthLoaded && (
+              <div>
+                {isUserLoggedIn ? (
+                  <Link href="/">
+                    <button
+                      onClick={() => {
+                        console.log("logout click");
+                        logOut();
+                      }}
+                    >
+                      log out
+                    </button>
+                  </Link>
+                ) : (
+                  <Link href="/login">
+                    <button
+                      onClick={() => {
+                        console.log("login click");
+                      }}
+                    >
+                      log in
+                    </button>
+                  </Link>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

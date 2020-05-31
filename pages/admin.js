@@ -1,24 +1,40 @@
+import { isLoggedOn } from "../auth/security-checks";
+import React, { useEffect, useState } from "react";
 import Page from "../components/page";
 
-export default function Home() {
+export default function Private() {
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isAuthLoaded, setisAuthLoaded] = useState(false);
+
+  useEffect(() => {
+    isLoggedOn(setIsUserLoggedIn, setisAuthLoaded);
+    console.log("logged in state:");
+    console.log(isUserLoggedIn);
+  }, []);
+
   return (
-    <div className="container">
-      <Page>
+    <Page>
+      <div className="container">
         <main>
-          <h1 className="title">
-            Welcome to <u>Firebase Auth with Next.js Example!</u>
-          </h1>
+          {isUserLoggedIn && (
+            <div>
+              <h1 className="title">Secret admin stuff!</h1>
 
-          <p className="description">
-            Get started by editing <code>doing some code!</code>
-          </p>
+              <p className="description">
+                <code>You are logged on so you can see all the secrets!</code>
+              </p>
+            </div>
+          )}
+          {!isUserLoggedIn && (
+            <div>
+              <h1 className="title">This is a private page!</h1>
 
-          <div className="grid">
-            <a className="card">
-              <h3>Look at this &rarr;</h3>
-              <p>NVM let's just ignore this for now.</p>
-            </a>
-          </div>
+              <p className="description">
+                <code>Go log in or you can't see this!</code>
+              </p>
+            </div>
+          )}
+          <pre id="account-details"></pre>
         </main>
         <style jsx>{`
           .container {
@@ -164,7 +180,7 @@ export default function Home() {
             box-sizing: border-box;
           }
         `}</style>
-      </Page>
-    </div>
+      </div>
+    </Page>
   );
 }

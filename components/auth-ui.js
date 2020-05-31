@@ -8,13 +8,7 @@ const AuthUI = () => {
     startFirebaseUI("#firebaseui");
   }, []);
 
-  return (
-    <div>
-      <h1>working</h1>
-      {/* <div id="firebaseui"></div> */}
-      security stuff based on tag
-    </div>
-  );
+  return <div />;
 };
 
 export default AuthUI;
